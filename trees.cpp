@@ -574,12 +574,100 @@ public:
     }
 
 };
+/////////////////////////////////////////////////////////////
+class MaxHeap {
+public:
+    vector<Student> heap_;
+    //MaxHeap() {}
+
+    void insert(Student s) {
+        heap_.push_back(s);
+        heapifyUp(heap_.size() - 1);
+    }
+
+    Student extractMax() {
+        Student max = heap_[0];
+        heap_[0] = heap_[heap_.size() - 1];
+        heap_.pop_back();
+        heapifyDown(0);
+        return max;
+    }
+
+    bool isEmpty() { return heap_.empty(); }
+
+
+
+    void heapifyUp(int index) {
+        while (index > 0) {
+            int parentIndex = (index - 1) / 2;
+            if (heap_[index].getGpa() > heap_[parentIndex].getGpa()) {
+                std::swap(heap_[index], heap_[parentIndex]);
+                index = parentIndex;
+            } else {
+                break;
+            }
+        }
+    }
+
+    void heapifyDown(int index) {
+        while (index < heap_.size()) {
+            int maxIndex = index;
+            int leftChildIndex = index * 2 + 1, rightChildIndex = index * 2 + 2;
+            if (leftChildIndex < heap_.size() &&
+                heap_[leftChildIndex].getGpa() > heap_[maxIndex].getGpa()) {
+                maxIndex = leftChildIndex;
+            }
+            if (rightChildIndex < heap_.size() &&
+                heap_[rightChildIndex].getGpa() > heap_[maxIndex].getGpa()) {
+                maxIndex = rightChildIndex;
+            }
+            if (index != maxIndex) {
+                swap(heap_[index], heap_[maxIndex]);
+                index = maxIndex;
+            } else {
+                break;
+            }
+        }
+    }
+    Student addStudent(){
+        Student st;
+        int id;
+        cout << "Enter ID: ";
+        cin >> id;
+        string name, dep;
+        double gpa;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter GPA: ";
+        cin >> gpa;
+        cout << "Enter Department: ";
+        cin >> dep;
+        st.setId(id);
+        st.setName(name);
+        st.setGpa(gpa);
+        st.setDepartment(dep);
+        insert(st);
+        cout << "The Student is Added.\n";
+        return st;
+    }
+    void print(MaxHeap studentHeap){
+        while (!studentHeap.isEmpty()) {
+            Student s = studentHeap.extractMax();
+            cout << "ID: " << s.getId() << ", Name: " << s.getName() << ", Department: "
+                      << s.getDepartment() << ", GPA: " << s.getGpa() << endl;
+        }
+    }
+
+};
+
+////////////////////////////////////////////////////////////
 class Manager
 {
 public:
     vector<Student> students;
     BST bst;
     AVLTree Atree;
+    MaxHeap MP;
 
     void openFile()
     {
@@ -627,6 +715,8 @@ public:
         else if(choice == 2)
         {
             AVLmenu();
+        }else if(choice==4){
+            MaxMenu();
         }
         else if(choice == 5)
             return;
@@ -817,6 +907,34 @@ public:
         }
         while(choice != 5);
     }
+    //////////////////////////////////////////////////////////////
+        void MaxMenu(){
+        int choice = 0;
+        for (int i = 0; i < students.size(); ++i) {
+            MaxHeap MP;
+            MP.insert(students[i]);
+        }
+        while(choice != 2){
+            cout << "\n^^^^^^^^MAX HEAP^^^^^^^^\n";
+            cout << "Choose one of the following options:\n"
+                    "1. Add student\n"
+                    "2. Print All (sorted by gpa)\n";
+            cout << "Choose number: ";
+            cin >> choice;
+            if(choice == 1){
+                Student st;
+                st = MP.addStudent();
+                students.push_back(st);
+            }
+            else if(choice == 2){
+                MP.print(MP);
+
+            }
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////
+
+    
 
 };
 
