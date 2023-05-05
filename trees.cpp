@@ -240,6 +240,41 @@ public:
         return st;
     }
 
+    // Stores inorder traversal of the BST
+    void storeSorted(node* root, int arr[], int& i)
+    {
+        if (root != NULL)
+        {
+            storeSorted(root->left, arr, i);
+            arr[i++] = root->data;
+            storeSorted(root->right, arr, i);
+        }
+    }
+
+// This function sorts arr[0..n-1] using Tree Sort by id
+    void treeSort(vector<Student> &students, int n)
+    {
+        int *arr = new int[n];
+        int i = 0;
+        storeSorted(root, arr, i);
+        for (int j=0; j<n; j++)
+        {
+            for (int i = 0; i < students.size(); ++i)
+            {
+                if(students[i].getId() == arr[j])
+                {
+                    cout << "[" << students[i].getId() << ", " << students[i].getName() << ", " << students[i].getGpa() << ", " << students[i].getDepartment() << "]\n";
+                    break;
+                }
+            }
+        }
+    }
+
+    
+
+
+
+
 };
 
 class AVLNode
@@ -498,17 +533,50 @@ public:
 
     }
 
-    void printInorder(AVLNode * r) //  (Left, current node, Right)
+    // void printInorder(AVLNode * r) //  (Left, current node, Right)
+    // {
+    //     if (r == NULL)
+    //         return;
+    //     /* first recur on left child */
+    //     printInorder(r -> leftLink);
+    //     /* then print the data of node */
+    //     cout << r -> info << " ";
+    //     /* now recur on right child */
+    //     printInorder(r -> rightLink);
+    // }
+    
+    // Stores inorder traversal of the AVLTree
+    void storeSorted(AVLNode* root, int arr[], int& i)
     {
-        if (r == NULL)
-            return;
-        /* first recur on left child */
-        printInorder(r -> leftLink);
-        /* then print the data of node */
-        cout << r -> info << " ";
-        /* now recur on right child */
-        printInorder(r -> rightLink);
+        if (root != NULL)
+        {
+            storeSorted(root->leftLink, arr, i);
+            arr[i++] = root->info;
+            storeSorted(root->rightLink, arr, i);
+        }
     }
+    
+
+// This function sorts arr[0..n-1] using Tree Sort by id
+    void treeSort(vector<Student> &students, int n)
+    {
+        int *arr = new int[n];
+        int i = 0;
+        storeSorted(root, arr, i);
+        for (int j=0; j<n; j++)
+        {
+            for (int i = 0; i < students.size(); ++i)
+            {
+                if(students[i].getId() == arr[j])
+                {
+                    cout << "[" << students[i].getId() << ", " << students[i].getName() << ", " << students[i].getGpa() << ", " << students[i].getDepartment() << "]\n";
+                    break;
+                }
+            }
+        }
+    }
+
+
     void printPostorder(AVLNode * r) //(Left, Right, Root)
     {
         if (r == NULL)
@@ -574,6 +642,8 @@ public:
     }
 
 };
+////////////////////////////////////////////////////////
+
 /////////////////////////////////////////////////////////////
 class MaxHeap {
 public:
@@ -653,8 +723,8 @@ public:
     void print(MaxHeap studentHeap){
         while (!studentHeap.isEmpty()) {
             Student s = studentHeap.extractMax();
-            cout << "ID: " << s.getId() << ", Name: " << s.getName() << ", Department: "
-                      << s.getDepartment() << ", GPA: " << s.getGpa() << endl;
+            cout << "[" << s.getId() << ", " << s.getName() << ", " << s.getGpa() << ", "
+                 << s.getDepartment() << "]\n";
         }
     }
 
@@ -715,7 +785,11 @@ public:
         else if(choice == 2)
         {
             AVLmenu();
-        }else if(choice==4){
+        }else if(choice == 3)
+        {
+            MinMenu();
+        }
+        else if(choice==4){
             MaxMenu();
         }
         else if(choice == 5)
@@ -812,7 +886,10 @@ public:
             }
             else if(choice == 4)
             {
-                bst.printTreePre(bst.root);
+                //bst.printTreePre(bst.root);
+                bst.treeSort(students, students.size());
+
+
             }
             else if(choice == 5)
             {
@@ -896,7 +973,8 @@ public:
             {
               //  cout<< "will print all students";
               //  Atree.printPreorder(Atree.root);
-                Atree.printPreorder(Atree.root);
+                //Atree.printPreorder(Atree.root);
+                Atree.treeSort(students, students.size());
                 break;
             }
 
@@ -908,6 +986,34 @@ public:
         while(choice != 5);
     }
     //////////////////////////////////////////////////////////////
+
+    void MinMenu(){
+        int choice = 0;
+        for (int i = 0; i < students.size(); ++i) {
+            MaxHeap MP;
+            MP.insert(students[i]);
+        }
+        while(choice != 2){
+            cout << "\n^^^^^^^^Min HEAP^^^^^^^^\n";
+            cout << "Choose one of the following options:\n"
+                    "1. Add student\n"
+                    "2. Print All (sorted by gpa)\n";
+            cout << "Choose number: ";
+            cin >> choice;
+            if(choice == 1){
+                Student st;
+                st = MP.addStudent();
+                students.push_back(st);
+            }
+            else if(choice == 2){
+                MP.print(MP);
+
+            }
+        }
+    }
+
+
+
         void MaxMenu(){
         int choice = 0;
         for (int i = 0; i < students.size(); ++i) {
