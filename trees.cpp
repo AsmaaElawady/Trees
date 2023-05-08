@@ -742,7 +742,7 @@ public:
     void openFile()
     {
         fstream file;
-        file.open("student.txt", ios::in);
+        file.open("students.txt", ios::in);
         if (file.is_open())
         {
             string line;
@@ -903,10 +903,15 @@ public:
         int choice;
         for (int i = 0; i < students.size(); ++i)
         {
+            Atree.insertNode(students[i].getId());
+        }
+        for (int i = 0; i < students.size(); ++i)
+        {
             AVLNode * newnode = new AVLNode();
             newnode -> info = students[i].getGpa();
             Atree.insertNewNode(Atree.root,newnode);
         }
+        
         do
         {
             cout << "\n^^^^^^^^AVL Tree^^^^^^^^\n";
@@ -1016,9 +1021,9 @@ public:
 
         void MaxMenu(){
         int choice = 0;
-        for (int i = 0; i < students.size(); ++i) {
-            MaxHeap MP;
-            MP.insert(students[i]);
+        for (int i = 0; i < students.size(); ++i)
+        {
+           MP.insert(students[i]);
         }
         while(choice != 2){
             cout << "\n^^^^^^^^MAX HEAP^^^^^^^^\n";
