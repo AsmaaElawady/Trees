@@ -93,14 +93,14 @@ public:
             r = newNode;
         }
 
-        //if tree is not empty.
-        //if the new item is less than last node, insert the new item to the left of this node.
+            //if tree is not empty.
+            //if the new item is less than last node, insert the new item to the left of this node.
         else if(item < r->data)
         {
             r -> left = insertNode(r->left, item);
         }
 
-        //if the new item is greater than last node, insert the new item to the right of this node.
+            //if the new item is greater than last node, insert the new item to the right of this node.
         else
         {
             r -> right = insertNode(r->right, item);
@@ -133,7 +133,7 @@ public:
         {
             return NULL;
         }
-        // go deep to the most right node (it is the max node)
+            // go deep to the most right node (it is the max node)
         else if(r->right == NULL)
             return r;
         else
@@ -152,25 +152,25 @@ public:
             r->left = deleteNode(r->left, key);
         else if(key > r->data)
             r->right = deleteNode(r->right, key);
-        //key is the root(leaf node, has one child, has two children.
+            //key is the root(leaf node, has one child, has two children.
         else
         {
             //check leaf node.
             if(r->right == NULL && r->left == NULL)
                 r = NULL;
-            //check one child on the right.
+                //check one child on the right.
             else if(r-> left == NULL && r-> right != NULL)
             {
                 r->data = r->right->data;
                 r = r->right;
             }
-            //check one child on the left.
+                //check one child on the left.
             else if(r-> left != NULL && r-> right == NULL)
             {
                 r->data = r->left->data;
                 r = r->left;
             }
-            //node has two children.
+                //node has two children.
             else
             {
                 //replace node with max node in the left
@@ -270,7 +270,7 @@ public:
         }
     }
 
-    
+
 
 
 
@@ -364,28 +364,37 @@ public:
         return root;
 
     }
-    AVLNode* insertNewNode(AVLNode* r, AVLNode* newnode)
+
+   AVLNode* insertNewNode(AVLNode* r, AVLNode* newnode)
     {
         if(r == nullptr)
         {
             r = newnode;
             //cout<< "node has been added successfully to root" <<endl;
+
             return r;
         }
 
-        if(r->info > newnode->info)
+
+        if(newnode->info < r->info)
         {
             r->leftLink =  insertNewNode(r->leftLink, newnode);
+                     // cout<< "node has been added successfully" <<endl;
+
         }
         else if(r->info < newnode->info)
         {
+
             r->rightLink=   insertNewNode(r->rightLink, newnode);
+                    //  cout<< "node has been added successfully" <<endl;
+
         }
         else if(r->info == newnode->info)
         {
             cout<< "AVL structure doesn't support duplicates"<<endl;
             return r;
         }
+        return r;
 
         int bf = calcBalanceF(r);
         // Left Left Case
@@ -398,7 +407,6 @@ public:
         // Right Right Case
         if (bf < -1 && newnode -> info > r -> rightLink -> info)
         {
-            cout<< "insert 6"<<endl;
             return rotateLeft(r);
         }
 
@@ -406,7 +414,6 @@ public:
         // Left Right Case
         if (bf > 1 && newnode -> info > r -> leftLink -> info)
         {
-            cout<< "insert 7"<<endl;
             r -> leftLink = rotateLeft(r -> leftLink);
             return rotateRight(r);
         }
@@ -414,23 +421,26 @@ public:
         // Right Left Case
         if (bf < -1 && newnode -> info < r -> rightLink -> info)
         {
-            cout<< "insert 8"<<endl;
             r -> rightLink = rotateRight(r -> rightLink);
             return rotateLeft(r);
         }
-          //          cout<< "node has been added successfully" <<endl;
+
 
         return r;
 
 
 
-    }
+    }   
+
+
+
     void insertNode(int item)
     {
         AVLNode * newnode = new AVLNode();
         newnode -> info = item;
         root = insertNewNode(root, newnode);
     }
+    
     AVLNode* getMin(AVLNode* node)
     {
         AVLNode* temp = node;
@@ -520,14 +530,14 @@ public:
         else
         {
             //cout<< "printing 21";
-          /* first print data of node */
-        cout << r -> info << " ";
-       // cout<< "printing 31";
-        /* then recur on left sutree */
-        printPreorder(r -> leftLink);
-        //cout<< "printing 251";
-        /* now recur on right subtree */
-        printPreorder(r -> rightLink);
+            /* first print data of node */
+            cout << r -> info << " ";
+            // cout<< "printing 31";
+            /* then recur on left sutree */
+            printPreorder(r -> leftLink);
+            //cout<< "printing 251";
+            /* now recur on right subtree */
+            printPreorder(r -> rightLink);
         }
 
 
@@ -544,7 +554,7 @@ public:
     //     /* now recur on right child */
     //     printInorder(r -> rightLink);
     // }
-    
+
     // Stores inorder traversal of the AVLTree
     void storeSorted(AVLNode* root, int arr[], int& i)
     {
@@ -555,7 +565,7 @@ public:
             storeSorted(root->rightLink, arr, i);
         }
     }
-    
+
 
 // This function sorts arr[0..n-1] using Tree Sort by id
     void treeSort(vector<Student> &students, int n)
@@ -771,11 +781,11 @@ public:
     {
         int choice;
         cout << "Choose Data Structure: \n"
-             "1. BST.\n"
-             "2. AVL.\n"
-             "3. Min Heap.\n"
-             "4. Max Heap.\n"
-             "5. Exit Program.\n";
+                "1. BST.\n"
+                "2. AVL.\n"
+                "3. Min Heap.\n"
+                "4. Max Heap.\n"
+                "5. Exit Program.\n";
         cout << "Choose number: ";
         cin >> choice;
         if(choice == 1)
@@ -808,11 +818,11 @@ public:
         {
             cout << "\n^^^^^^^^Binary Search Tree^^^^^^^^\n";
             cout << "Choose one of the following options:\n"
-                 "1. Add student\n"
-                 "2. Remove student\n"
-                 "3. Search student\n"
-                 "4. Print All (sorted by id)\n"
-                 "5. Return to main menu\n";
+                    "1. Add student\n"
+                    "2. Remove student\n"
+                    "3. Search student\n"
+                    "4. Print All (sorted by id)\n"
+                    "5. Return to main menu\n";
             cout << "Choose number: ";
             cin >> choice;
             if(choice == 1)
@@ -901,90 +911,94 @@ public:
     void AVLmenu()
     {
         int choice;
-        for (int i = 0; i < students.size(); ++i)
-        {
-            Atree.insertNode(students[i].getId());
-        }
+
         for (int i = 0; i < students.size(); ++i)
         {
             AVLNode * newnode = new AVLNode();
             newnode -> info = students[i].getGpa();
             Atree.insertNewNode(Atree.root,newnode);
         }
-        
+        for (int i = 0; i < students.size(); ++i)
+        {
+            AVLNode * newnode = new AVLNode();
+            newnode -> info = students[i].getId();
+       //     cout<<students[i].getId()<<endl;
+          Atree.root=  Atree.insertNewNode(Atree.root,newnode);
+        }
+
         do
         {
             cout << "\n^^^^^^^^AVL Tree^^^^^^^^\n";
             cout << "Choose one of the following options:\n"
-                 "1. Add student\n"
-                 "2. Remove student\n"
-                 "3. Search student\n"
-                 "4. Print All (sorted by id)\n"
-                 "5. Return to main menu\n";
+                    "1. Add student\n"
+                    "2. Remove student\n"
+                    "3. Search student\n"
+                    "4. Print All (sorted by id)\n"
+                    "5. Return to main menu\n";
             cout << "Choose number: ";
 
             cin>> choice;
             switch(choice)
             {
-            case 1:
-            {
-                Student newStud;
-                newStud = Atree.addStudent();
-                students.push_back(newStud);
-                break;
-            }
-
-            case 2:
-            {
-                int id;
-                cout<< "Enter ID to remove : ";
-                cin>>id;
-                //
-                AVLNode* newnode = new AVLNode();
-                newnode = Atree.searchForNode(id);
-               if(newnode != nullptr)
-               {
-                   Atree.root = Atree.deleteNode(Atree.root, id);
-                   cout<< "Student with ID = " << id << " is deleted"<<endl;
-               }
-               else
-               {
-                   cout<< "Sorry, this student doesn't exist"<<endl;
-               }
-               break;
-            }
-
-
-            case 3:
-            {
-                cout << "SEARCH" << endl;
-                int id;
-                cout << "Enter ID to Search For ";
-                cin >> id;
-                AVLNode * newnode = new AVLNode();
-                newnode = Atree.searchForNode(id);
-                if (newnode != NULL)
+                case 1:
                 {
-                    cout << "Value found" << endl;
+                    Student newStud;
+                    newStud = Atree.addStudent();
+                    students.push_back(newStud);
+                    break;
                 }
-                else
+
+                case 2:
                 {
-                    cout << "Value NOT found" << endl;
+                    int id;
+                    cout<< "Enter ID to remove : ";
+                    cin>>id;
+                    //
+                    AVLNode* newnode = new AVLNode();
+                    newnode = Atree.searchForNode(id);
+                    if(newnode != nullptr)
+                    {
+                        Atree.root = Atree.deleteNode(Atree.root, id);
+                        cout<< "Student with ID = " << id << " is deleted"<<endl;
+                    }
+                    else
+                    {
+                        cout<< "Sorry, this student doesn't exist"<<endl;
+                    }
+                    break;
                 }
-                break;
-            }
 
-            case 4:
-            {
-              //  cout<< "will print all students";
-              //  Atree.printPreorder(Atree.root);
-                //Atree.printPreorder(Atree.root);
-                Atree.treeSort(students, students.size());
-                break;
-            }
 
-            case 5:
-                mainMenu();
+                case 3:
+                {
+                    cout << "SEARCH" << endl;
+                    int id;
+                    cout << "Enter ID to Search For ";
+                    cin >> id;
+                    AVLNode * newnode = new AVLNode();
+                    newnode = Atree.searchForNode(id);
+                    if (newnode != NULL)
+                    {
+                        cout << "Value found" << endl;
+                    }
+                    else
+                    {
+                        cout << "Value NOT found" << endl;
+                    }
+                    break;
+                }
+
+                case 4:
+                {
+                    //  cout<< "will print all students";
+                    //  Atree.printPreorder(Atree.root);
+                    //Atree.printPreorder(Atree.root);
+                    Atree.treeSort(students, students.size());
+                    break;
+                }
+
+                case 5:
+                    mainMenu();
 
             }
         }
@@ -1019,11 +1033,11 @@ public:
 
 
 
-        void MaxMenu(){
+    void MaxMenu(){
         int choice = 0;
         for (int i = 0; i < students.size(); ++i)
         {
-           MP.insert(students[i]);
+            MP.insert(students[i]);
         }
         while(choice != 2){
             cout << "\n^^^^^^^^MAX HEAP^^^^^^^^\n";
@@ -1045,7 +1059,7 @@ public:
     }
     ////////////////////////////////////////////////////////////////////////
 
-    
+
 
 };
 
