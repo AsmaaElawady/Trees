@@ -365,7 +365,7 @@ public:
 
     }
 
-   AVLNode* insertNewNode(AVLNode* r, AVLNode* newnode)
+    AVLNode* insertNewNode(AVLNode* r, AVLNode* newnode)
     {
         if(r == nullptr)
         {
@@ -379,14 +379,14 @@ public:
         if(newnode->info < r->info)
         {
             r->leftLink =  insertNewNode(r->leftLink, newnode);
-                     // cout<< "node has been added successfully" <<endl;
+            // cout<< "node has been added successfully" <<endl;
 
         }
         else if(r->info < newnode->info)
         {
 
             r->rightLink=   insertNewNode(r->rightLink, newnode);
-                    //  cout<< "node has been added successfully" <<endl;
+            //  cout<< "node has been added successfully" <<endl;
 
         }
         else if(r->info == newnode->info)
@@ -430,7 +430,7 @@ public:
 
 
 
-    }   
+    }
 
 
 
@@ -440,7 +440,7 @@ public:
         newnode -> info = item;
         root = insertNewNode(root, newnode);
     }
-    
+
     AVLNode* getMin(AVLNode* node)
     {
         AVLNode* temp = node;
@@ -652,6 +652,141 @@ public:
     }
 
 };
+
+
+// Note:
+// -> (i-1)/2 is the index of the parent node.
+// -> (2*i + 1) is the index of the left child.
+// -> (2*i + 2) is the index of the right child.
+
+class MinHeap{
+private:
+    double *arr; // include the nodes of the MinHeap (GPAs).
+    int capacity;
+    int size;
+
+public:
+    // default constructor.
+    MinHeap(){
+        capacity = 0;
+        size = 0;
+        arr = new double[capacity];
+    }
+
+    MinHeap(int cap){
+        capacity = cap;
+        size = 0;
+        arr = new double[capacity];
+    }
+
+    // to get the index of parent node of node at index i.
+    int parent(int i){
+        if(i == 0){
+            return i;
+        }
+        return (i-1)/2;
+    }
+
+    // to get the index of left child of node at index i.
+    int left(int i){
+        return 2*i+1;
+    }
+
+    // to get the index of right child of node at index i.
+    int right(int i){
+        return 2*i+2;
+    }
+
+    void minHeapify(int i){
+        // get the index of the left child of current node.
+        int l = left(i);
+        // get the index of the right child of current node.
+        int r = right(i);
+
+        int smallest = i;
+        if(l < size && arr[l] < arr[smallest])
+            smallest = l;
+
+        if(r < size && arr[r] < arr[smallest])
+            smallest = r;
+
+        if(smallest != i){
+            swap(arr[i], arr[smallest]);
+            minHeapify(parent(i));
+        }
+    }
+
+    void insert(double i){
+        if(size == capacity){
+            cout << "Heap is Full\n";
+            return;
+        }
+
+        // insert the new element at the end of the tree.
+        int sz = size;
+        arr[size++] = double(i);
+
+        // now call heapify to ensure that the minHeap properties not violated.
+        if(sz != 0){
+            minHeapify(parent(sz));
+        }
+
+    }
+
+    void printMinHeap(){
+        double sortedArr[size];
+        // fill the new array with the elements of the real array which includes tree nodes.
+        for (int i = 0; i < size; ++i) {
+            sortedArr[i] = arr[i];
+        }
+        int minIndx;
+        int i;
+        for (i = 0; i < size-1; ++i) {
+            minIndx = i;
+            for (int j = i + 1; j < size; ++j) {
+                if (sortedArr[j] < sortedArr[minIndx])
+                    minIndx = j;
+            }
+            swap(sortedArr[i], sortedArr[minIndx]);
+        }
+
+        for (int j = 0; j < size; ++j) {
+            cout << sortedArr[j] << " ";
+        }
+        cout << endl;
+    }
+
+    void print(){
+        for (int j = 0; j < size; ++j) {
+            cout << arr[j] << " ";
+        }
+        cout << endl;
+    }
+
+    Student addStudent(){
+        Student st;
+        int id;
+        cout << "Enter ID: ";
+        cin >> id;
+        string name, dep;
+        double gpa;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter GPA: ";
+        cin >> gpa;
+        cout << "Enter Department: ";
+        cin >> dep;
+        st.setId(id);
+        st.setName(name);
+        st.setGpa(gpa);
+        st.setDepartment(dep);
+        insert(st.getGpa());
+        cout << "The Student is Added.\n";
+        return st;
+    }
+};
+
+
 ////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////
@@ -752,7 +887,7 @@ public:
     void openFile()
     {
         fstream file;
-        file.open("students.txt", ios::in);
+        file.open("C:\\Users\\Dell\\CLionProjects\\DataStructures\\students.txt", ios::in);
         if (file.is_open())
         {
             string line;
@@ -808,7 +943,6 @@ public:
 
     void BSTMenu()
     {
-
         int choice = 0;
         for (int i = 0; i < students.size(); ++i)
         {
@@ -922,8 +1056,8 @@ public:
         {
             AVLNode * newnode = new AVLNode();
             newnode -> info = students[i].getId();
-       //     cout<<students[i].getId()<<endl;
-          Atree.root=  Atree.insertNewNode(Atree.root,newnode);
+            //     cout<<students[i].getId()<<endl;
+            Atree.root=  Atree.insertNewNode(Atree.root,newnode);
         }
 
         do
@@ -1007,26 +1141,28 @@ public:
     //////////////////////////////////////////////////////////////
 
     void MinMenu(){
+        MinHeap mh(200);
         int choice = 0;
         for (int i = 0; i < students.size(); ++i) {
-            MaxHeap MP;
-            MP.insert(students[i]);
+            mh.insert(students[i].getGpa());
         }
-        while(choice != 2){
+        while(choice != 3){
             cout << "\n^^^^^^^^Min HEAP^^^^^^^^\n";
             cout << "Choose one of the following options:\n"
                     "1. Add student\n"
-                    "2. Print All (sorted by gpa)\n";
+                    "2. Print All (sorted by gpa)\n"
+                    "3. Return to main menu\n";
             cout << "Choose number: ";
             cin >> choice;
             if(choice == 1){
                 Student st;
-                st = MP.addStudent();
+                st = mh.addStudent();
                 students.push_back(st);
             }
             else if(choice == 2){
-                MP.print(MP);
-
+                mh.printMinHeap();
+            }else if(choice == 3){
+                mainMenu();
             }
         }
     }
@@ -1053,7 +1189,6 @@ public:
             }
             else if(choice == 2){
                 MP.print(MP);
-
             }
         }
     }
