@@ -222,6 +222,13 @@ void Manager::AVLmenu()
                 if(newnode != nullptr)
                 {
                     Atree.root = Atree.deleteNode(Atree.root, id);
+                     for(int i = 0 ; i<students.size();i++)
+                        {
+                            if(students[i].getId() == id)
+                            {
+                                students.erase(students.begin()+i);
+                            }
+                        }
                     cout<< "Student with ID = " << id << " is deleted"<<endl;
                 }
                 else
