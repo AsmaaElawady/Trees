@@ -24,6 +24,9 @@ public:
     Student addStudent();
 
     void print(MaxHeap studentHeap);
+
+    void printDepartment(MaxHeap studentHeap);
+
 };
 
 #endif //DATASTRUCTURES_MAXHEAP_H

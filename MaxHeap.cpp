@@ -81,4 +81,27 @@ void MaxHeap::print(MaxHeap studentHeap){
         cout << "[" << s.getId() << ", " << s.getName() << ", " << s.getGpa() << ", "
              << s.getDepartment() << "]\n";
     }
+    
+    
+}
+
+
+void MaxHeap::printDepartment(MaxHeap studentHeap){
+    int cs = 0, is = 0, it = 0,ds=0;
+    while (!studentHeap.isEmpty()) {
+        Student s = studentHeap.extractMax();
+        if(s.getDepartment() == "CS"){
+            cs++;
+        }else if(s.getDepartment() == "IS"){
+            is++;
+        }else if(s.getDepartment() == "IT"){
+            it++;
+        }else if(s.getDepartment() == "DS"){
+            ds++;
+        }
+    }
+    cout << "CS " << cs << " Students\n";
+    cout << "IS " << is << " Students\n";
+    cout << "IT " << it << " Students\n";
+    cout << "DS " << ds << " Students\n";
 }

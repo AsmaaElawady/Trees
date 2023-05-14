@@ -362,3 +362,32 @@ Student AVLTree::addStudent()
     cout << "The Student is Added.\n";
     return st;
 }
+
+
+void AVLTree::printDepartment(vector<Student> &students)
+{
+    int cs = 0, is = 0, it = 0, ds = 0;
+    for (int i = 0; i < students.size(); ++i)
+    {
+        if (students[i].getDepartment() == "CS")
+        {
+            cs++;
+        }
+        else if (students[i].getDepartment() == "IS")
+        {
+            is++;
+        }
+        else if (students[i].getDepartment() == "IT")
+        {
+            it++;
+        }
+        else if (students[i].getDepartment() == "DS")
+        {
+            ds++;
+        }
+    }
+    cout << "CS " << cs << " Students\n";
+    cout << "IS " << is << " Students\n";
+    cout << "IT " << it << " Students\n";
+    cout << "DS " << ds << " Students\n";
+}

@@ -44,6 +44,8 @@ public:
     // This function sorts arr[0..n-1] using Tree Sort by id
     void treeSort(vector<Student> &students, int n);
 
+    void printDepartment(vector<Student> &students);
+
 };
 
 

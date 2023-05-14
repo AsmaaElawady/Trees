@@ -161,6 +161,7 @@ void Manager::BSTMenu()
         {
             //bst.printTreePre(bst.root);
             bst.treeSort(students, students.size());
+            bst.printDepartment(students);
         }
         else if(choice == 5)
         {
@@ -263,6 +264,7 @@ void Manager::AVLmenu()
                 //  Atree.printPreorder(Atree.root);
                 //Atree.printPreorder(Atree.root);
                 Atree.treeSort(students, students.size());
+                Atree.printDepartment(students);
                 break;
             }
 
@@ -323,6 +325,7 @@ void Manager::MaxMenu(){
         }
         else if(choice == 2){
             MP.print(MP);
+            MP.printDepartment(MP);
         }else if(choice == 3){
             mainMenu();
         }

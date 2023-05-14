@@ -55,6 +55,8 @@ public:
     AVLNode * searchForNode(int item);
 
     Student addStudent();
+    
+    void printDepartment(vector<Student> &students);
 };
 
 

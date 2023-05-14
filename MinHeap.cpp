@@ -107,6 +107,7 @@ void MinHeap::print(){
     cout << endl;
 }
 
+
 Student MinHeap::addStudent(){
     Student st;
     int id;
@@ -128,3 +129,11 @@ Student MinHeap::addStudent(){
     cout << "The Student is Added.\n";
     return st;
 }
+
+
+
+
+
+
+
+
