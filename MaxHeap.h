@@ -6,10 +6,15 @@
 
 using namespace std;
 
-class MaxHeap {
+class MaxHeap
+{
+private:
+    vector<Student> myStudents;
+
 public:
     vector<Student> heap_;
-    //MaxHeap() {}
+
+    MaxHeap(vector<Student> students);
 
     void insert(Student s);
 
@@ -21,12 +26,11 @@ public:
 
     void heapifyDown(int index);
 
-    Student addStudent();
+    void addStudent();
 
     void print(MaxHeap studentHeap);
 
     void printDepartment(MaxHeap studentHeap);
-
 };
 
-#endif //DATASTRUCTURES_MAXHEAP_H
+#endif // DATASTRUCTURES_MAXHEAP_H

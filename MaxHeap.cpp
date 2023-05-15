@@ -5,12 +5,23 @@
 
 using namespace std;
 
-void MaxHeap::insert(Student s) {
+MaxHeap::MaxHeap(vector<Student> students)
+{
+    for (size_t i = 0; i < students.size(); i++)
+    {
+        insert(students[i]);
+        myStudents.push_back(students[i]);
+    }
+}
+
+void MaxHeap::insert(Student s)
+{
     heap_.push_back(s);
     heapifyUp(heap_.size() - 1);
 }
 
-Student MaxHeap::extractMax() {
+Student MaxHeap::extractMax()
+{
     Student max = heap_[0];
     heap_[0] = heap_[heap_.size() - 1];
     heap_.pop_back();
@@ -20,40 +31,53 @@ Student MaxHeap::extractMax() {
 
 bool MaxHeap::isEmpty() { return heap_.empty(); }
 
-void MaxHeap::heapifyUp(int index) {
-    while (index > 0) {
+void MaxHeap::heapifyUp(int index)
+{
+    while (index > 0)
+    {
         int parentIndex = (index - 1) / 2;
-        if (heap_[index].getGpa() > heap_[parentIndex].getGpa()) {
+        if (heap_[index].getGpa() > heap_[parentIndex].getGpa())
+        {
             std::swap(heap_[index], heap_[parentIndex]);
             index = parentIndex;
-        } else {
+        }
+        else
+        {
             break;
         }
     }
 }
 
-void MaxHeap::heapifyDown(int index) {
-    while (index < heap_.size()) {
+void MaxHeap::heapifyDown(int index)
+{
+    while (index < heap_.size())
+    {
         int maxIndex = index;
         int leftChildIndex = index * 2 + 1, rightChildIndex = index * 2 + 2;
         if (leftChildIndex < heap_.size() &&
-            heap_[leftChildIndex].getGpa() > heap_[maxIndex].getGpa()) {
+            heap_[leftChildIndex].getGpa() > heap_[maxIndex].getGpa())
+        {
             maxIndex = leftChildIndex;
         }
         if (rightChildIndex < heap_.size() &&
-            heap_[rightChildIndex].getGpa() > heap_[maxIndex].getGpa()) {
+            heap_[rightChildIndex].getGpa() > heap_[maxIndex].getGpa())
+        {
             maxIndex = rightChildIndex;
         }
-        if (index != maxIndex) {
+        if (index != maxIndex)
+        {
             swap(heap_[index], heap_[maxIndex]);
             index = maxIndex;
-        } else {
+        }
+        else
+        {
             break;
         }
     }
 }
 
-Student MaxHeap::addStudent(){
+void MaxHeap::addStudent()
+{
     Student st;
     int id;
     cout << "Enter ID: ";
@@ -72,31 +96,38 @@ Student MaxHeap::addStudent(){
     st.setDepartment(dep);
     insert(st);
     cout << "The Student is Added.\n";
-    return st;
 }
 
-void MaxHeap::print(MaxHeap studentHeap){
-    while (!studentHeap.isEmpty()) {
+void MaxHeap::print(MaxHeap studentHeap)
+{
+    while (!studentHeap.isEmpty())
+    {
         Student s = studentHeap.extractMax();
         cout << "[" << s.getId() << ", " << s.getName() << ", " << s.getGpa() << ", "
              << s.getDepartment() << "]\n";
     }
-    
-    
 }
 
-
-void MaxHeap::printDepartment(MaxHeap studentHeap){
-    int cs = 0, is = 0, it = 0,ds=0;
-    while (!studentHeap.isEmpty()) {
+void MaxHeap::printDepartment(MaxHeap studentHeap)
+{
+    int cs = 0, is = 0, it = 0, ds = 0;
+    while (!studentHeap.isEmpty())
+    {
         Student s = studentHeap.extractMax();
-        if(s.getDepartment() == "CS"){
+        if (s.getDepartment() == "CS")
+        {
             cs++;
-        }else if(s.getDepartment() == "IS"){
+        }
+        else if (s.getDepartment() == "IS")
+        {
             is++;
-        }else if(s.getDepartment() == "IT"){
+        }
+        else if (s.getDepartment() == "IT")
+        {
             it++;
-        }else if(s.getDepartment() == "DS"){
+        }
+        else if (s.getDepartment() == "DS")
+        {
             ds++;
         }
     }

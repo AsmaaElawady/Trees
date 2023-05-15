@@ -177,7 +177,29 @@ void Manager::AVLmenu()
             }
             else
             {
-                cout << "Sorry, this student doesn't exist" << endl;
+                int id;
+                cout << "Enter ID to remove : ";
+                cin >> id;
+                //
+                AVLNode *newnode = new AVLNode();
+                newnode = Atree.searchForNode(id);
+                if (newnode != nullptr)
+                {
+                    Atree.root = Atree.deleteNode(Atree.root, id);
+                    for (int i = 0; i < students.size(); i++)
+                    {
+                        if (students[i].getId() == id)
+                        {
+                            students.erase(students.begin() + i);
+                        }
+                    }
+                    cout << "Student with ID = " << id << " is deleted" << endl;
+                }
+                else
+                {
+                    cout << "Sorry, this student doesn't exist" << endl;
+                }
+                break;
             }
             break;
         }
@@ -196,7 +218,12 @@ void Manager::AVLmenu()
             }
             else
             {
-                cout << "Value NOT found" << endl;
+                //  cout<< "will print all students";
+                //  Atree.printPreorder(Atree.root);
+                // Atree.printPreorder(Atree.root);
+                Atree.treeSort(students, students.size());
+                Atree.printDepartment(students);
+                break;
             }
             break;
         }
@@ -252,11 +279,8 @@ void Manager::MinMenu()
 
 void Manager::MaxMenu()
 {
+    MaxHeap MP(students);
     int choice = 0;
-    for (int i = 0; i < students.size(); ++i)
-    {
-        MP.insert(students[i]);
-    }
     while (choice != 3)
     {
         cout << "\n^^^^^^^^MAX HEAP^^^^^^^^\n";
@@ -269,13 +293,12 @@ void Manager::MaxMenu()
         cin >> choice;
         if (choice == 1)
         {
-            Student st;
-            st = MP.addStudent();
-            students.push_back(st);
+            MP.addStudent();
         }
         else if (choice == 2)
         {
             MP.print(MP);
+            MP.printDepartment(MP);
         }
         else if (choice == 3)
         {

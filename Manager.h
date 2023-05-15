@@ -16,7 +16,7 @@ public:
     vector<Student> students;
     // BST bst;
     AVLTree Atree;
-    MaxHeap MP;
+    // MaxHeap MP;
 
     void openFile();
 
