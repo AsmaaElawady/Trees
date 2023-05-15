@@ -3,17 +3,20 @@
 
 #include "Student.cpp"
 
-class MinHeap{
+class MinHeap
+{
 private:
     double *arr; // include the nodes of the MinHeap (GPAs).
     int capacity;
     int size;
+    vector<Student> myStudents;
+    map<string, int> departments;
 
 public:
     // default constructor.
     MinHeap();
 
-    MinHeap(int cap);
+    MinHeap(int cap, vector<Student> students);
 
     // to get the index of parent node of node at index i.
     int parent(int i);
@@ -32,8 +35,13 @@ public:
 
     void print();
 
-    Student addStudent();
+    void addStudent();
+
+    void printDepartments();
+
+    void addDepartment(string dep);
+
+    void sortStudents();
 };
 
-
-#endif //DATASTRUCTURES_MINHEAP_H
+#endif // DATASTRUCTURES_MINHEAP_H

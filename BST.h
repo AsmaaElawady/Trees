@@ -8,13 +8,18 @@
 
 using namespace std;
 
-class BST {
+class BST
+{
+private:
+    vector<Student> myStudents;
+    map<string, int> departments;
+
 public:
-    //pointer refers to the first element in the tree.
+    // pointer refers to the first element in the tree.
     node *root;
 
-    //default constructor.
-    BST();
+    // default constructor.
+    BST(vector<Student> students);
 
     // returns pointer to the last node, because we do not need to start from root each time.
     node *insertNode(node *r, int item);
@@ -27,7 +32,6 @@ public:
     // find max element in tree.
     node *findMax(node *r);
 
-
     node *deleteNode(node *r, int key);
 
     void deleteStudent(int id);
@@ -36,17 +40,21 @@ public:
 
     bool search(int key);
 
-    Student addStudent();
+    void addStudent();
 
     // Stores inorder traversal of the BST
     void storeSorted(node *root, int arr[], int &i);
 
     // This function sorts arr[0..n-1] using Tree Sort by id
-    void treeSort(vector<Student> &students, int n);
+    void treeSort();
 
-    void printDepartment(vector<Student> &students);
+    void printDepartments();
 
+    void addDepartment(string dep);
+
+    void removeStudent();
+
+    void print(int id);
 };
 
-
-#endif //DATASTRUCTURES_BST_H
+#endif // DATASTRUCTURES_BST_H

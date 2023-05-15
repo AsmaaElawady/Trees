@@ -1,7 +1,6 @@
 #ifndef DATASTRUCTURES_MANAGER_H
 #define DATASTRUCTURES_MANAGER_H
 
-
 #include "MaxHeap.cpp"
 #include "MinHeap.cpp"
 #include "AVL.cpp"
@@ -11,11 +10,11 @@
 
 using namespace std;
 
-
-class Manager{
+class Manager
+{
 public:
     vector<Student> students;
-    BST bst;
+    // BST bst;
     AVLTree Atree;
     MaxHeap MP;
 
@@ -32,5 +31,4 @@ public:
     void MaxMenu();
 };
 
-
-#endif //DATASTRUCTURES_MANAGER_H
+#endif // DATASTRUCTURES_MANAGER_H
