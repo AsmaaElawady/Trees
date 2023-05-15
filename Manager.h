@@ -14,6 +14,7 @@ class Manager
 {
 public:
     vector<Student> students;
+    vector<Student> AVLStudents;
     // BST bst;
     AVLTree Atree;
     // MaxHeap MP;

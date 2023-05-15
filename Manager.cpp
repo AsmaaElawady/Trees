@@ -30,6 +30,7 @@ void Manager::openFile()
             getline(file, line);
             st.setDepartment(line);
             students.push_back(st);
+            AVLStudents.push_back(st);
         }
         // Close the file object.
         file.close();
@@ -125,18 +126,18 @@ void Manager::BSTMenu()
 void Manager::AVLmenu()
 {
     int choice;
-    for (int i = 0; i < students.size(); ++i)
+    for (int i = 0; i < AVLStudents.size(); ++i)
     {
-        AVLNode * newnode = new AVLNode();
-        newnode -> info = students[i].getGpa();
-        Atree.insertNewNode(Atree.root,newnode);
+        AVLNode *newnode = new AVLNode();
+        newnode->info = AVLStudents[i].getGpa();
+        Atree.insertNewNode(Atree.root, newnode);
     }
-    for (int i = 0; i < students.size(); ++i)
+    for (int i = 0; i < AVLStudents.size(); ++i)
     {
-        AVLNode * newnode = new AVLNode();
-        newnode -> info = students[i].getId();
+        AVLNode *newnode = new AVLNode();
+        newnode->info = AVLStudents[i].getId();
         //     cout<<students[i].getId()<<endl;
-        Atree.root=  Atree.insertNewNode(Atree.root,newnode);
+        Atree.root = Atree.insertNewNode(Atree.root, newnode);
     }
     do
     {
@@ -148,74 +149,73 @@ void Manager::AVLmenu()
                 "4. Print All (sorted by id)\n"
                 "5. Return to main menu\n";
         cout << "Choose number: ";
-        cin>> choice;
-        switch(choice)
+        cin >> choice;
+        switch (choice)
         {
-            case 1:
-            {
-                Student newStud;
-                newStud = Atree.addStudent();
-                students.push_back(newStud);
-                break;
-            }
-            case 2:
-            {
-                int id;
-                cout<< "Enter ID to remove : ";
-                cin>>id;
-                //
-                AVLNode* newnode = new AVLNode();
-                newnode = Atree.searchForNode(id);
-                if(newnode != nullptr)
-                {
-                    Atree.root = Atree.deleteNode(Atree.root, id);
-                     for(int i = 0 ; i<students.size();i++)
-                        {
-                            if(students[i].getId() == id)
-                            {
-                                students.erase(students.begin()+i);
-                            }
-                        }
-                    cout<< "Student with ID = " << id << " is deleted"<<endl;
-                }
-                else
-                {
-                    cout<< "Sorry, this student doesn't exist"<<endl;
-                }
-                break;
-            }
-            case 3:
-            {
-                cout << "SEARCH" << endl;
-                int id;
-                cout << "Enter ID to Search For ";
-                cin >> id;
-                AVLNode * newnode = new AVLNode();
-                newnode = Atree.searchForNode(id);
-                if (newnode != NULL)
-                {
-                    cout << "Value found" << endl;
-                }
-                else
-                {
-                    cout << "Value NOT found" << endl;
-                }
-                break;
-            }
-            case 4:
-            {
-                //  cout<< "will print all students";
-                //  Atree.printPreorder(Atree.root);
-                //Atree.printPreorder(Atree.root);
-                Atree.treeSort(students, students.size());
-                Atree.printDepartment(students);
-                break;
-            }
-            case 5:
-                mainMenu();
+        case 1:
+        {
+            Student newStud;
+            newStud = Atree.addStudent();
+            AVLStudents.push_back(newStud);
+            break;
         }
-    }
-    while(choice != 5);
+        case 2:
+        {
+            int id;
+            cout << "Enter ID to remove : ";
+            cin >> id;
+            //
+            AVLNode *newnode = new AVLNode();
+            newnode = Atree.searchForNode(id);
+            if (newnode != nullptr)
+            {
+                Atree.root = Atree.deleteNode(Atree.root, id);
+                for (int i = 0; i < AVLStudents.size(); i++)
+                {
+                    if (AVLStudents[i].getId() == id)
+                    {
+                        AVLStudents.erase(AVLStudents.begin() + i);
+                    }
+                }
+                cout << "Student with ID = " << id << " is deleted" << endl;
+            }
+            else
+            {
+                cout << "Sorry, this student doesn't exist" << endl;
+            }
+            break;
+        }
+        case 3:
+        {
+            cout << "SEARCH" << endl;
+            int id;
+            cout << "Enter ID to Search For ";
+            cin >> id;
+            AVLNode *newnode = new AVLNode();
+            newnode = Atree.searchForNode(id);
+            if (newnode != NULL)
+            {
+                cout << "Value found" << endl;
+            }
+            else
+            {
+                cout << "Value NOT found" << endl;
+            }
+            break;
+        }
+        case 4:
+        {
+            //  cout<< "will print all students";
+            //  Atree.printPreorder(Atree.root);
+            // Atree.printPreorder(Atree.root);
+            Atree.treeSort(AVLStudents, AVLStudents.size());
+            Atree.printDepartment(AVLStudents);
+            break;
+        }
+        case 5:
+            mainMenu();
+        }
+    } while (choice != 5);
 }
 //////////////////////////////////////////////////////////////
 
